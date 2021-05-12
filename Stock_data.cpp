@@ -70,6 +70,7 @@ vector<float> Stock_data::operator() (string _id) const{
         throw runtime_error("key error : comapny not exists. ");
     return _data.at(_id);
 }
+
 // ostream & operator<<(ostream &output, const Stock_data &d){
 //     for (std::vector<int>::iterator it = d._data.begin() ; it != myvector.end(); ++it)
 //         std::cout << ' ' << *it;
