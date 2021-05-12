@@ -1,5 +1,5 @@
-#include<iostream>
-#include"Stock_data.hpp"
+#include <iostream>
+#include "Stock_data.hpp"
 
 using namespace std;
 

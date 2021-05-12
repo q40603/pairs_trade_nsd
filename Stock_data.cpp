@@ -3,7 +3,7 @@
 #include <string.h>
 #include <sstream>
 #include <set>
-using namespace std;
+// using namespace std;
 
 void Stock_data::read_csv(string _filename){
 
@@ -11,7 +11,9 @@ void Stock_data::read_csv(string _filename){
 
     if(!myFile.is_open()) throw runtime_error("Could not open file");
     string line, colname;
-    float val;
+    char delim = ',' ;
+    string val;
+    int colIdx;
 
     // Read the column names
     if(myFile.good())
@@ -27,6 +29,7 @@ void Stock_data::read_csv(string _filename){
         while(getline(ss, colname, ',')){
             _company.insert(make_pair(colname,i));
             _data.push_back(vector<float>());
+            i++;
         }
     }
     // Read data, line by line
@@ -34,19 +37,11 @@ void Stock_data::read_csv(string _filename){
     {
         // Create a stringstream of the current line
         std::stringstream ss(line);
-        
         // Keep track of the current column index
-        int colIdx = 0;
-        
-        // Extract each integer
-        while(ss >> val){
-            
-            // Add the current integer to the 'colIdx' column's values vector
-            _data.at(colIdx).push_back(val);
-            // If the next token is a comma, ignore it and move on
-            if(ss.peek() == ',') ss.ignore();
-            
-            // Increment the column index
+        colIdx = 0;
+        while (std::getline (ss, val, delim)){
+            if(val=="") val="0"; 
+            _data[colIdx].push_back(stof(val));
             colIdx++;
         }
     }
