@@ -10,10 +10,11 @@ public:
     ~Stock_data() = default;;
     void read_csv(std::string _file);
     void drop_empty();
+    void to_log();
 
-    vector<float> operator() (string _id) const;
+    vector<double> operator() (string _id) const;
     friend ostream& operator<<(ostream &print, const Stock_data &d);
 
 private:
-   unordered_map<string, vector<float> > _data;
+   unordered_map<string, vector<double> > _data;
 };

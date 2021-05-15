@@ -4,6 +4,7 @@
 #include <sstream>
 #include <set>
 #include <algorithm>
+#include <math.h>
 // using namespace std;
 
 void Stock_data::read_csv(string _filename){
@@ -30,7 +31,7 @@ void Stock_data::read_csv(string _filename){
         int i = 0;
         while(getline(ss, colname, ',')){
             _company.insert(make_pair(i,colname));
-            _data.insert(make_pair(colname,vector<float>()));
+            _data.insert(make_pair(colname,vector<double>()));
             i++;
         }
     }
@@ -50,8 +51,8 @@ void Stock_data::read_csv(string _filename){
 }
 
 void Stock_data::drop_empty(){
-    unordered_map<string, vector<float> >::iterator it;
-    vector<float>::iterator vit;
+    unordered_map<string, vector<double> >::iterator it;
+    vector<double>::iterator vit;
     vector<string> trash;
     for (it = _data.begin(); it != _data.end(); it++){
         vit = find(it->second.begin(), it->second.end(), 0.0);
@@ -65,10 +66,20 @@ void Stock_data::drop_empty(){
 
 }
 
-vector<float> Stock_data::operator() (string _id) const{
+vector<double> Stock_data::operator() (string _id) const{
     if (_data.find(_id) == _data.end())
         throw runtime_error("key error : comapny not exists. ");
     return _data.at(_id);
+}
+
+void Stock_data::to_log(){
+    unordered_map<string, vector<double> >::iterator it;
+    vector<double>::iterator vit;
+    for (it = _data.begin(); it != _data.end(); it++){
+        for(vit = it->second.begin(); vit != it->second.end(); vit++){
+            *vit = log(*vit);
+        }
+    }
 }
 
 // ostream & operator<<(ostream &output, const Stock_data &d){

@@ -1,0 +1,7 @@
+/home/kctsai/1092/pairs_trade_nsd/armadillo-10.4.1/CMakeFiles/install/strip.dir
+/home/kctsai/1092/pairs_trade_nsd/armadillo-10.4.1/CMakeFiles/install/local.dir
+/home/kctsai/1092/pairs_trade_nsd/armadillo-10.4.1/CMakeFiles/install.dir
+/home/kctsai/1092/pairs_trade_nsd/armadillo-10.4.1/CMakeFiles/list_install_components.dir
+/home/kctsai/1092/pairs_trade_nsd/armadillo-10.4.1/CMakeFiles/rebuild_cache.dir
+/home/kctsai/1092/pairs_trade_nsd/armadillo-10.4.1/CMakeFiles/edit_cache.dir
+/home/kctsai/1092/pairs_trade_nsd/armadillo-10.4.1/CMakeFiles/armadillo.dir
