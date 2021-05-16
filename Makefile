@@ -1,3 +1,4 @@
+export LD_LIBRARY_PAT=./URT/lib/:$LD_LIBRARY_PATH
 main: main.o Stock_data.o
 	g++ -O3 -std=c++17 -march=native -DUSE_ARMA -L ./URT/lib main.o Stock_data.o -o main -lURT -Wall -Wextra -Werror -fPIC  
 

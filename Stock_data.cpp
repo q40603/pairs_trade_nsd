@@ -10,9 +10,8 @@
 void Stock_data::read_csv(string _filename){
 
     ifstream myFile(_filename);
-
-    if(!myFile.is_open()) throw runtime_error("Could not open file");
     map<int, string> _company;
+    if(!myFile.is_open()) throw runtime_error("Could not open file");
     string line, colname;
     char delim = ',' ;
     string val;
@@ -80,6 +79,15 @@ void Stock_data::to_log(){
             *vit = log(*vit);
         }
     }
+}
+
+
+vector<string> Stock_data::get_company_list(){
+    vector<string> res;
+    for ( auto it = _data.begin(); it != _data.end(); ++it ){
+        res.push_back(it->first);
+    }
+    return res;
 }
 
 // ostream & operator<<(ostream &output, const Stock_data &d){

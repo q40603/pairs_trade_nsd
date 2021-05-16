@@ -8,13 +8,31 @@ int main(){
     data.read_csv("./test.csv");
     data.drop_empty();
     data.to_log();
-    tmp = data("2330");
+    vector<string> com_list = data.get_company_list();
+    double pval;
     int i = 0;
-    for (std::vector<double>::iterator it = tmp.begin() ; it !=tmp.end(); ++it){
-        std::cout << i++ << ' ' << *it <<endl;
-        
+    for(std::vector<string>::iterator it = com_list.begin(); it != com_list.end(); ++it){
+        // cout<<*it<<endl;
+        tmp = data(*it);
+        urt::ADF<double> test(tmp, 7 , "c");
+        pval = test.pvalue();
+        if (pval <= 0.05){
+            cout << ++i << " drop " << *it<<endl;
+        }
+        // std::cout << std::fixed << std::setprecision(3);
+        // cout<<std::setw(29)<<test.pvalue()<<endl;
+        // test.show();
+
     }
-    urt::ADF<double> test(tmp, "c");
-    test.show();
+    // tmp = data("2330");
+    // int i = 0;
+    // for (std::vector<double>::iterator it = tmp.begin() ; it !=tmp.end(); ++it){
+    //     std::cout << i++ << ' ' << *it <<endl;
+        
+    // }
+    // int max_lag = pow(12*(tmp.size())/100, 1/4);
+    // cout<<max_lag<<endl;
+    // urt::ADF<double> test(tmp, 7 , "c");
+    // test.show();
     return 0;
 }
