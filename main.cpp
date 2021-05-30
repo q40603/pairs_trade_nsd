@@ -8,17 +8,20 @@ int main(){
     data.read_csv("./test.csv");
     data.drop_empty();
     data.to_log();
+    
     vector<string> com_list = data.get_company_list();
-    double pval;
+    double stat;
     int i = 0;
     for(std::vector<string>::iterator it = com_list.begin(); it != com_list.end(); ++it){
         // cout<<*it<<endl;
         tmp = data(*it);
-        urt::ADF<double> test(tmp, 7 , "c");
-        pval = test.pvalue();
-        if (pval <= 0.05){
-            cout << ++i << " drop " << *it<<endl;
-        }
+        urt::ADF<double> test(tmp, "AIC", "c", false);
+        stat = test.statistic();
+        // if (stat <= 0.05){
+        cout << ++i << " " << *it << " " << stat <<endl;
+            // test.show();
+            
+        // }
         // std::cout << std::fixed << std::setprecision(3);
         // cout<<std::setw(29)<<test.pvalue()<<endl;
         // test.show();

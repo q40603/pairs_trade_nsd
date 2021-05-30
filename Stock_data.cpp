@@ -50,7 +50,7 @@ void Stock_data::read_csv(string _filename){
 }
 
 void Stock_data::drop_empty(){
-    unordered_map<string, vector<double> >::iterator it;
+    map<string, vector<double> >::iterator it;
     vector<double>::iterator vit;
     vector<string> trash;
     for (it = _data.begin(); it != _data.end(); it++){
@@ -72,7 +72,7 @@ vector<double> Stock_data::operator() (string _id) const{
 }
 
 void Stock_data::to_log(){
-    unordered_map<string, vector<double> >::iterator it;
+    map<string, vector<double> >::iterator it;
     vector<double>::iterator vit;
     for (it = _data.begin(); it != _data.end(); it++){
         for(vit = it->second.begin(); vit != it->second.end(); vit++){

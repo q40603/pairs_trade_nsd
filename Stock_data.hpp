@@ -16,5 +16,5 @@ public:
     vector<double> operator() (string _id) const;
     friend ostream& operator<<(ostream &print, const Stock_data &d);
 private:
-   unordered_map<string, vector<double> > _data;
+   map<string, vector<double> > _data;
 };
