@@ -25,19 +25,28 @@ def VAR_model( y , p ):
         a = 1
         for j in range(p):
             a = np.hstack( (a,y[i+p-j-1]) )
-        
+            # print(i+p-j-1, a)
+
+        # print(a)
+        # print(a.shape)
         a = a.reshape([1,(k*p)+1])
         xt[i] = a
-    
+        # print(a)
+        # print(a.shape)
+    # print(xt)
+    # print(xt.shape)
+    # print("-----------")
     zt = np.delete(y,np.s_[0:p],axis=0)
     xt = np.mat(xt)
     zt = np.mat(zt)
-
+    # print(xt)
+    # print(zt)
     beta = ( xt.T * xt ).I * xt.T * zt                      # 計算VAR的參數
+    
     
     A = zt - xt * beta                                      # 計算殘差
     sigma = ( (A.T) * A ) / (n-p)                           # 計算殘差的共變異數矩陣
-        
+    # print(sigma)
     return [ sigma , beta ]
 
 # 配適 VAR(P) 模型 ，並利用BIC選擇落後期數--------------------------------------------------------------
@@ -52,6 +61,7 @@ def order_select( y , max_p ):
         sigma = VAR_model( y , p )[0]
         
         bic[p-1] = np.log( np.linalg.det(sigma) ) + np.log(n) * p * (k*k) / n
+        # print(bic[p-1])
         
     bic_order = int(np.where(bic == np.min(bic))[0] + 1)        # 因為期數p從1開始，因此需要加1
     

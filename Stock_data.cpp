@@ -7,7 +7,15 @@
 #include <math.h>
 // using namespace std;
 
-void Stock_data::read_csv(string _filename){
+Stock_data &Stock_data::operator=(Stock_data const &other) {
+    if (this == &other) {
+        return *this;
+    }
+    _data = other._data;
+    return *this;
+}
+
+Stock_data& Stock_data::read_csv(string _filename){
 
     ifstream myFile(_filename);
     map<int, string> _company;
@@ -47,9 +55,10 @@ void Stock_data::read_csv(string _filename){
             colIdx++;
         }
     }
+    return *this;
 }
 
-void Stock_data::drop_empty(){
+Stock_data& Stock_data::drop_empty(){
     map<string, vector<double> >::iterator it;
     vector<double>::iterator vit;
     vector<string> trash;
@@ -62,6 +71,7 @@ void Stock_data::drop_empty(){
         _data.erase(trash.back());
         trash.pop_back();
     }
+    return *this;
 
 }
 
@@ -71,7 +81,7 @@ vector<double> Stock_data::operator() (string _id) const{
     return _data.at(_id);
 }
 
-void Stock_data::to_log(){
+Stock_data& Stock_data::to_log(){
     map<string, vector<double> >::iterator it;
     vector<double>::iterator vit;
     for (it = _data.begin(); it != _data.end(); it++){
@@ -79,6 +89,7 @@ void Stock_data::to_log(){
             *vit = log(*vit);
         }
     }
+    return *this;
 }
 
 
@@ -90,7 +101,18 @@ vector<string> Stock_data::get_company_list(){
     return res;
 }
 
-// ostream & operator<<(ostream &output, const Stock_data &d){
-//     for (std::vector<int>::iterator it = d._data.begin() ; it != myvector.end(); ++it)
-//         std::cout << ' ' << *it;
-// }
+vector<vector<vector<double>>> Stock_data::get_pairs(){
+    vector<vector<vector<double>>> res;
+    vector<string> clist = get_company_list();
+    size_t l = clist.size();
+    for (size_t i = 0 ; i < l ; i ++){
+        for(size_t j = i+1 ; j < l ; j++ ){
+            vector<vector<double>> _pair;
+            _pair.push_back(_data.at(clist[i]));
+            _pair.push_back(_data.at(clist[j]));
+            res.push_back(_pair);
+        }
+    }
+
+    return res;
+}

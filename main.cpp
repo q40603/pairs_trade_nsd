@@ -5,13 +5,18 @@
 int main(){
     Stock_data data;
     vector<double> tmp;
-    data.read_csv("./test.csv");
-    data.drop_empty();
-    data.to_log();
+    data = data.read_csv("./test.csv");
+    data = data.drop_empty();
+    data = data.to_log();
     
     vector<string> com_list = data.get_company_list();
+    vector<vector<vector<double>>> pairs = data.get_pairs();
+    // for(std::vector<string>::iterator it = com_list.begin(); it != com_list.end(); ++it){
+
+
     double stat;
     int i = 0;
+
     for(std::vector<string>::iterator it = com_list.begin(); it != com_list.end(); ++it){
         // cout<<*it<<endl;
         tmp = data(*it);
